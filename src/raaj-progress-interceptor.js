@@ -24,7 +24,7 @@
             var callback = function(nbRequests, message, config) {
                 var irajGlobalProgressEl = jQuery('[irajGlobalProgress]');
                 if (irajGlobalProgressEl.length == 0) {
-                    jQuery(document.body).append('<div irajGlobalProgress><img irajGlobalProgressImg src="'+progressImgSrc+'" /><span irajGlobalProgressNbRequests class="badge"></span><span irajGlobalProgressMessage /></div>');
+                    jQuery(document.body).append('<div irajGlobalProgress><span irajGlobalProgressImg ></span><span irajGlobalProgressNbRequests class="badge"></span><span irajGlobalProgressMessage /></div>');
                     irajGlobalProgressEl = jQuery('[irajGlobalProgress]');
                 }
                 var irajGlobalProgressMessageEl = irajGlobalProgressEl.find('[irajGlobalProgressMessage]');

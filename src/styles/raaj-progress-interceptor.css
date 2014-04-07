@@ -6,6 +6,7 @@
 }
 
 [irajGlobalProgressImg] {
+    background-image: url('../images/progress.gif');
 	height: 32px;
 	width: 32px;
 	float: left;
