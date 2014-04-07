@@ -1,0 +1,23 @@
+{
+  "name": "raaj-progress-interceptor",
+  "version": "1.2.0",
+  "homepage": "https://github.com/iorga-group/raaj-progress-interceptor",
+  "authors": [
+    "iORGA GROUP"
+  ],
+  "description": "Restless Architecture for AngularJS - Progress Interceptor",
+  "main": [
+      "./src/raaj-progress-interceptor.js",
+      "./src/styles/raaj-progress-interceptor.css",
+      "./src/images/progress.gif"
+  ],
+  "dependencies": {
+    "angular": "~1.2.15"
+  },
+  "keywords": [
+    "raaj",
+    "progress",
+    "restless"
+  ],
+  "license": "LGPLv3"
+}
