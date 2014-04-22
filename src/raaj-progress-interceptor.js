@@ -19,8 +19,7 @@
 
     angular.module('raaj-progress-interceptor', [])
         .provider('irajProgressInterceptor', function() {
-            var defaultMessage,
-                progressImgSrc='images/progress.gif';
+            var defaultMessage;
             var callback = function(nbRequests, message, config) {
                 var irajGlobalProgressEl = jQuery('[irajGlobalProgress]');
                 if (irajGlobalProgressEl.length == 0) {
@@ -57,21 +56,17 @@
 
             this.setCallback = function(callbackParam) {
                 callback = callbackParam;
-            }
+            };
 
             this.setDefaultMessage = function(defaultMessageParam) {
                 defaultMessage = defaultMessageParam;
-            }
-
-            this.setProgressImgSrc = function(progressImgSrcParam) {
-                progressImgSrc = progressImgSrcParam;
-            }
+            };
 
             this.$get = function() {
                 return {
                     callback: callback
                 };
-            }
+            };
         })
         .config(function ($httpProvider) {
             var nbRequests = 0;
@@ -92,7 +87,7 @@
                         irajProgressInterceptor.callback(nbRequests);
                         return $q.reject(rejection);
                     }
-                }
+                };
             });
         })
     ;
