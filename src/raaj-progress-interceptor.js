@@ -18,25 +18,25 @@
     'use strict';
 
     angular.module('raaj-progress-interceptor', [])
-        .provider('irajProgressInterceptor', function() {
+        .provider('raajProgressInterceptor', function() {
             var defaultMessage;
             var callback = function(nbRequests, message, config) {
-                var irajGlobalProgressEl = jQuery('[irajGlobalProgress]');
-                if (irajGlobalProgressEl.length == 0) {
-                    jQuery(document.body).append('<div irajGlobalProgress><span irajGlobalProgressImg ></span><span irajGlobalProgressNbRequests class="badge"></span><span irajGlobalProgressMessage /></div>');
-                    irajGlobalProgressEl = jQuery('[irajGlobalProgress]');
+                var raajGlobalProgressEl = jQuery('[raajGlobalProgress]');
+                if (raajGlobalProgressEl.length == 0) {
+                    jQuery(document.body).append('<div raajGlobalProgress><span raajGlobalProgressImg ></span><span raajGlobalProgressNbRequests class="badge"></span><span raajGlobalProgressMessage /></div>');
+                    raajGlobalProgressEl = jQuery('[raajGlobalProgress]');
                 }
-                var irajGlobalProgressMessageEl = irajGlobalProgressEl.find('[irajGlobalProgressMessage]');
+                var raajGlobalProgressMessageEl = raajGlobalProgressEl.find('[raajGlobalProgressMessage]');
                 if (nbRequests == 0) {
-                    irajGlobalProgressEl.hide();
-                    irajGlobalProgressMessageEl.empty();
+                    raajGlobalProgressEl.hide();
+                    raajGlobalProgressMessageEl.empty();
                 } else {
-                    var irajGlobalProgressNbRequestsEl = irajGlobalProgressEl.find('[irajGlobalProgressNbRequests]');
+                    var raajGlobalProgressNbRequestsEl = raajGlobalProgressEl.find('[raajGlobalProgressNbRequests]');
                     if (nbRequests > 1)	{
-                        irajGlobalProgressNbRequestsEl.text(nbRequests);
-                        irajGlobalProgressNbRequestsEl.show();
+                        raajGlobalProgressNbRequestsEl.text(nbRequests);
+                        raajGlobalProgressNbRequestsEl.show();
                     } else {
-                        irajGlobalProgressNbRequestsEl.hide();
+                        raajGlobalProgressNbRequestsEl.hide();
                     }
                     // first apply default message if any
                     if (!message) {
@@ -48,9 +48,9 @@
                         }
                     }
                     if (message) {
-                        irajGlobalProgressMessageEl.text(message);
+                        raajGlobalProgressMessageEl.text(message);
                     }
-                    irajGlobalProgressEl.show();
+                    raajGlobalProgressEl.show();
                 }
             };
 
@@ -70,21 +70,21 @@
         })
         .config(function ($httpProvider) {
             var nbRequests = 0;
-            $httpProvider.interceptors.push(function($q, $rootScope, irajProgressInterceptor) {
+            $httpProvider.interceptors.push(function($q, $rootScope, raajProgressInterceptor) {
                 return {
                     'request': function(config) {
                         nbRequests++;
-                        irajProgressInterceptor.callback(nbRequests, config.irajProgressMessage, config);
+                        raajProgressInterceptor.callback(nbRequests, config.raajProgressMessage, config);
                         return config;
                     },
                     'response': function(response) {
                         nbRequests--;
-                        irajProgressInterceptor.callback(nbRequests);
+                        raajProgressInterceptor.callback(nbRequests);
                         return response;
                     },
                     'responseError': function(rejection) {
                         nbRequests--;
-                        irajProgressInterceptor.callback(nbRequests);
+                        raajProgressInterceptor.callback(nbRequests);
                         return $q.reject(rejection);
                     }
                 };
