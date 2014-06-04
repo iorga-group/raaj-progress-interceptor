@@ -68,27 +68,28 @@
                 };
             };
         })
+        .factory('raajProgressRequestInterceptor', function($q, $rootScope, raajProgressInterceptor) {
+        	var nbRequests = 0;
+            return {
+                'request': function(config) {
+                    nbRequests++;
+                    raajProgressInterceptor.callback(nbRequests, config.raajProgressMessage, config);
+                    return config;
+                },
+                'response': function(response) {
+                    nbRequests--;
+                    raajProgressInterceptor.callback(nbRequests);
+                    return response;
+                },
+                'responseError': function(rejection) {
+                    nbRequests--;
+                    raajProgressInterceptor.callback(nbRequests);
+                    return $q.reject(rejection);
+                }
+            };
+        })
         .config(function ($httpProvider) {
-            var nbRequests = 0;
-            $httpProvider.interceptors.push(function($q, $rootScope, raajProgressInterceptor) {
-                return {
-                    'request': function(config) {
-                        nbRequests++;
-                        raajProgressInterceptor.callback(nbRequests, config.raajProgressMessage, config);
-                        return config;
-                    },
-                    'response': function(response) {
-                        nbRequests--;
-                        raajProgressInterceptor.callback(nbRequests);
-                        return response;
-                    },
-                    'responseError': function(rejection) {
-                        nbRequests--;
-                        raajProgressInterceptor.callback(nbRequests);
-                        return $q.reject(rejection);
-                    }
-                };
-            });
+            $httpProvider.interceptors.push('raajProgressRequestInterceptor');
         })
     ;
 })();
